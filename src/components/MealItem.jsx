@@ -1,7 +1,15 @@
-import Button from './UI/Button';
+import { useContext } from 'react';
 import { currentcyFormatter } from '../util/formatting.js';
+import Button from './UI/Button';
+import CartContext from '../store/CartContext.jsx';
 
 export default function MealItem({ meal }) {
+  const cartCtx = useContext(CartContext);
+
+  function handleAddMealToCart() {
+    cartCtx.addItem(meal);
+  }
+
   return (
     <li className="meal-item">
       <article>
@@ -12,7 +20,12 @@ export default function MealItem({ meal }) {
           <p className="meal-item-description">{meal.descrption}</p>
         </div>
         <p className="meal-item-actions">
-          <Button textOnly={false}>Add to Cart</Button>
+          <Button
+            onClick={handleAddMealToCart}
+            textOnly={false}
+          >
+            Add to Cart
+          </Button>
         </p>
       </article>
     </li>
